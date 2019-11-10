@@ -1,0 +1,18 @@
+#title {
+ text-align: center;
+ text-decoration: underline;
+ 
+}
+
+#radio, #dateDoc, #newDoc{
+
+display: none;
+
+}
+
+#last, #deldoc, #hospDisplay {
+
+display: none;
+
+}
+
