@@ -12,7 +12,7 @@ include 'connectdb.php';
 ?>
 <h1 id="title"> My Hospital Databse </h1>
 <br>
-<h2 class = "allh2">Doctor Information: </h2>
+<h2 class = "allh2">Doctor/Patient Information: </h2>
 <br>
 <h4> Would you like to get all Doctors or Doctors licensed before a given date?</h4>
 <button onclick="displayEntry('dateDoc')"> Before Date </button>
@@ -61,6 +61,66 @@ include 'connectdb.php';
 	<input type="submit" value"Delete Doctor">
 	</form>
 </div>
+<h4 class = "allh4">Get doctor treating a patient: </h4>
+<button onclick ="displayEntry('dispForm')"> Insert Patient </button>
+<div id="dispForm">
+
+	<form class="form" name="form5" action="" method="post">
+	Patient OHIP: <input type="text" name="patohip" required><br>
+	<input type="submit" value="View Info"><br>
+        </form>
+
+</div>
+<h4 class = "allh4">Assign doctor to patient or stop doctor from treating patient: </h4>
+<button onclick ="displayEntry('assign')"> Assign Patient</button>
+<button onclick ="displayEntry('stopDoc')"> Stop Treating</button><br>
+<div id="assign">
+	<form class="form" name="form6" action="" method="post">
+        Patient OHIP: <input type="text" name="patohip1" required><br>
+	Doctor License Number: <input type="text" name="docLic" required><br>
+        <input type="submit" value="Submit"><br>
+        </form>
+
+</div>
+<div id="stopDoc">
+	<form class="form" name="form7" action="" method="post">
+        Patient OHIP: <input type="text" name="patohip2" required><br>
+        Doctor License Number: <input type="text" name="docLic2" required><br>
+        <input type="submit" value="Submit"><br>
+        </form>
+
+</div>
+<br>
+<h4 class="allh4">Doctors currently not treating any patients: </h4>
+<button onclick="displayEntry('nottreating')"> Get Doctors </button><br>
+<div id="nottreating">
+	<?php
+		$query1= 'SELECT fname,lname FROM Doctor WHERE licenseNumber NOT IN(SELECT licenseNumber FROM Treats)';
+		$result = mysqli_query($connection,$query1);
+
+		if (!$result) {
+     			die("databases query failed.");
+		}
+		$length = 0;
+		echo "<ol>";
+		while ($row = mysqli_fetch_assoc($result)) {
+		$length++;
+		if($length = 0)
+		{
+			echo 'All doctors are currently treating a patient';
+		}
+
+    		echo "<li>";
+    		echo $row["fname"].", ".$row["lname"]. "</li>";
+		
+		}
+		mysqli_free_result($result);
+		
+		echo "</ol>"
+
+	?>
+</div>
+
 <h2 clas="allh2">Hospital Info: <h2>
 <button onclick= "displayEntry('hospDisplay')"> View Hospitals</button>
 <div id="hospDisplay">
@@ -87,7 +147,7 @@ include 'connectdb.php';
 	echo "</ol>";
 ?>
 <br>
-<form class="form" name="form5" action="updatehosp.php" method="post">
+<form class="form" name="form8" action="updatehosp.php" method="post">
 	Hospital Code: <input type="text" name="hospcode" required><br>
 	New Hospital Name: <input type="text" name="newname" required><br>
 
