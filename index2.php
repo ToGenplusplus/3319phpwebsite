@@ -61,11 +61,11 @@ include 'connectdb.php';
 	<input type="submit" value"Delete Doctor">
 	</form>
 </div>
-<h4 class = "allh4">Get doctor treating a patient: </h4>
+<h4 class = "allh4">Get doctors treating a patient: </h4>
 <button onclick ="displayEntry('dispForm')"> Insert Patient </button>
 <div id="dispForm">
 
-	<form class="form" name="form5" action="" method="post">
+	<form class="form" name="form5" action="docpatient.php" method="post">
 	Patient OHIP: <input type="text" name="patohip" required><br>
 	<input type="submit" value="View Info"><br>
         </form>
@@ -75,7 +75,7 @@ include 'connectdb.php';
 <button onclick ="displayEntry('assign')"> Assign Patient</button>
 <button onclick ="displayEntry('stopDoc')"> Stop Treating</button><br>
 <div id="assign">
-	<form class="form" name="form6" action="" method="post">
+	<form class="form" name="form6" action="treats.php" method="post">
         Patient OHIP: <input type="text" name="patohip1" required><br>
 	Doctor License Number: <input type="text" name="docLic" required><br>
         <input type="submit" value="Submit"><br>
@@ -83,7 +83,7 @@ include 'connectdb.php';
 
 </div>
 <div id="stopDoc">
-	<form class="form" name="form7" action="" method="post">
+	<form class="form" name="form7" action="stoptreat.php" method="post">
         Patient OHIP: <input type="text" name="patohip2" required><br>
         Doctor License Number: <input type="text" name="docLic2" required><br>
         <input type="submit" value="Submit"><br>
