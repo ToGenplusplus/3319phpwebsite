@@ -55,7 +55,7 @@ include 'connectdb.php';
 	</form>
 </div>
 <div id="deldoc">
-	<form class="form" name="form4" action="" method="post">
+	<form class="form" name="form4" action="deletedoc.php" method="post">
 	FirstName: <input type="text" name="fname" required><br>
         LastName: <input type="text" name="lname" required><br>
 	<input type="submit" value"Delete Doctor">

@@ -1,3 +1,5 @@
+//this function displays a particular div
+//if display = none and vice versa
 
 function displayEntry(value)
 {

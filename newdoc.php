@@ -26,6 +26,8 @@ while($row = mysqli_fetch_assoc($result))
 	$length++;
 }
 
+mysqli_free_result($result);
+
 /*
 This function takes a variable as paramter
 checks if that variable is empty
@@ -53,14 +55,16 @@ if($length == 0)
 	if(!res){
 		die("Error: insert failed" . mysqli_error($connection));
 	}
+	
 
 	echo "Doctor has been added:"."<br>";
 	echo $licnum.", ".$fname.", ".$lname.", ".$spec.", ".$licensed.", ".$code;
 	
+	mysqli_free_result($res);
 }
 else	//let user know licenseNumber already exist in database
 {
-	echo $licensed ." already exist in databse, choose another ID";
+	echo "Doctor already exist in databse, choose another ID";
 }
 
 mysqli_close($connection);	//always close connection after done using
