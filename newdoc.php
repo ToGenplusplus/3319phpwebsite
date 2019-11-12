@@ -10,19 +10,35 @@ include 'connectdb.php';
 ?>
 <?php
 
-$licnum = $_POST["lnum"];
+$licnum = $_POST["lnum"];	//get doctor license number from user
 
-$query1 = 'SELECT * FROM Doctor WHERE licenseNumber =' ." "."'$licnum'";
+$query1 = 'SELECT * FROM Doctor WHERE licenseNumber =' ." "."'$licnum'";	//query will check if the license Number already exist
 
 $result = mysqli_query($connection,$query1);
-$length = 0;
+$length = 0;	//will count how many rows we get from query
+
 if(!$result){
-                die("Error: insert failed" . mysqli_error($connection));
-        }
+        die("Error: insert failed" . mysqli_error($connection));
+}
+
 while($row = mysqli_fetch_assoc($result))
 {
 	$length++;
 }
+
+/*
+This function takes a variable as paramter
+checks if that variable is empty
+sets it to NULL if it is,
+returns the variable
+*/
+function checkNull($variable)
+{
+	$variable = !empty($variable) ? "'$variable'" : "NULL";
+	return $variable;
+}
+
+//if the first query didn't return a match then license number doesn't exist - create doctor
 if($length == 0)
 {
 	$fname = $_POST["fname"];
@@ -31,22 +47,23 @@ if($length == 0)
 	$licensed = $_POST["license"];
 	$code = $_POST["hospcode"];
 
-	$query2 = 'INSERT INTO Doctor(licenseNumber,fname,lname,specialty,dateLicensed,hospCode)VALUES('."'$licnum'".","."'$fname'".","."'$lname'".","."'$spec'".","."'$licensed'".","."'$code'".")";
+	$query2 = 'INSERT INTO Doctor(licenseNumber,fname,lname,specialty,dateLicensed,hospCode)VALUES('."'$licnum'".",".checkNull($fname).",".checkNull($lname).",".checkNull($spec).",".checkNull($licensed).","."'$code'".")";
 
 	$res = mysqli_query($connection,$query2);
 	if(!res){
 		die("Error: insert failed" . mysqli_error($connection));
 	}
+
 	echo "Doctor has been added:"."<br>";
 	echo $licnum.", ".$fname.", ".$lname.", ".$spec.", ".$licensed.", ".$code;
 	
 }
-else
+else	//let user know licenseNumber already exist in database
 {
 	echo $licensed ." already exist in databse, choose another ID";
 }
 
-mysqli_close($connection);
+mysqli_close($connection);	//always close connection after done using
 	
 ?>
 </body>

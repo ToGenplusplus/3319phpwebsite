@@ -8,21 +8,22 @@
 <?php
 include 'connectdb.php';
 ?>
-<h1>Doctors Available:</h1>
-<br>
-
 <ol>
 <?php
-   $orderby = $_POST["order"];
-   $ascordsc = $_POST["ascordsc"];
+
+   $orderby = $_POST["order"];		//get user choice for ordering by first or last name
+   $ascordsc = $_POST["ascordsc"];	// get user choice for ascending or descending
 
    if($ascordsc == "desc")
    {
 	$query = 'SELECT licenseNumber,fname,lname FROM Doctor ORDER BY'. " ".$orderby ." ". 'DESC';
+
    	$result = mysqli_query($connection,$query);
+
    	if (!$result) {
         die("databases query failed.");
     	}
+
    	echo "Doctors First and Last names. Click doctor to view details: </br>";
 	echo "<br>";
 	echo '<form action="getdocinfo.php" method="post">';
@@ -31,16 +32,18 @@ include 'connectdb.php';
         	echo $row["licenseNumber"];
         	echo '">' . $row["fname"] . " " . $row["lname"] . "<br>";
    	}
+
    	mysqli_free_result($result);
 	echo '<br>';
 	echo'<input type="submit" value="Get Doc Info">';
 	echo'</form>';
 	
    }
-   else{
+   else{// if user chooses normal ascending
    
    $query = 'SELECT licenseNumber,fname,lname FROM Doctor ORDER BY'." ".$orderby;
    $result = mysqli_query($connection,$query);
+
    if (!$result) {
         die("databases query failed.");
     }
@@ -64,7 +67,7 @@ include 'connectdb.php';
 </ol>
 <?php
 
- mysqli_close($connection);
+ mysqli_close($connection);	//always close connection after done using
 ?>
 </body>
 </html>

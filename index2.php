@@ -45,9 +45,9 @@ include 'connectdb.php';
 	<form class="form" name="form3" action="newdoc.php" method="post">
 		
 		License Number: <input type="text" name="lnum" required><br>
-		FirstName: <input type="text" name="fname" value=NULL><br>
-		LastName: <input type="text" name="lname" value = NULL><br>
-		Specialty: <input type="text" name="spec"value=NULL><br>
+		FirstName: <input type="text" name="fname" ><br>
+		LastName: <input type="text" name="lname" ><br>
+		Specialty: <input type="text" name="spec"><br>
 		DateLicensed: <input type="date" name="license"><br>
 		Hospital Code: <input type="text" name="hospcode" required><br>
 
