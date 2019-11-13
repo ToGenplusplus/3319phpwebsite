@@ -20,7 +20,7 @@ include 'connectdb.php';
     $result=mysqli_query($connection,$query);
 
     if (!$result) {
-         die("database query failed.");
+         die("database query failed." . mysqli_error($connection));
 	 mysqli_free_result($result);	//got to free a result of one query before issuing another	 
      }else
 	{
@@ -29,7 +29,7 @@ include 'connectdb.php';
 		$res=mysqli_query($connection,$query2);
 
 		if (!$res) {
-         		die("database query failed.");
+         		die("database query failed. " . mysqli_error($connection));
      		}
 
 		while ($row=mysqli_fetch_assoc($res)) {

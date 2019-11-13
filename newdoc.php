@@ -40,6 +40,7 @@ function checkNull($variable)
 	return $variable;
 }
 
+
 //if the first query didn't return a match then license number doesn't exist - create doctor
 if($length == 0)
 {
@@ -49,19 +50,28 @@ if($length == 0)
 	$licensed = $_POST["license"];
 	$code = $_POST["hospcode"];
 
-	$query2 = 'INSERT INTO Doctor(licenseNumber,fname,lname,specialty,dateLicensed,hospCode)VALUES('."'$licnum'".",".checkNull($fname).",".checkNull($lname).",".checkNull($spec).",".checkNull($licensed).","."'$code'".")";
+	if(strtoupper($code) != "DDE" || strtoupper($code) != "BBC" || strtoupper($code) != "ABC")
+	{
+		echo strtoupper($code).'<br>';
+		echo 'Hospital code '.$code.' is not valid, enter valid hospital code';
 
-	$res = mysqli_query($connection,$query2);
-	if(!res){
-		die("Error: insert failed" . mysqli_error($connection));
+	}else
+	{
+		$query2 = 'INSERT INTO Doctor(licenseNumber,fname,lname,specialty,dateLicensed,hospCode)VALUES('."'$licnum'".",".checkNull($fname).",".checkNull($lname).",".checkNull($spec).",".checkNull($licensed).","."'$code'".")";
+
+		$res = mysqli_query($connection,$query2);
+		if(!res){
+			die("Error: insert failed" . mysqli_error($connection));
+		}
+	
+		mysqli_free_result($res);
+
+		echo "Doctor has been added:"."<br>";
+		echo $licnum.", ".$fname.", ".$lname.", ".$spec.", ".$licensed.", ".$code;
 	}
-	
 
-	echo "Doctor has been added:"."<br>";
-	echo $licnum.", ".$fname.", ".$lname.", ".$spec.", ".$licensed.", ".$code;
-	
-	mysqli_free_result($res);
 }
+
 else	//let user know licenseNumber already exist in database
 {
 	echo "Doctor already exist in databse, choose another ID";

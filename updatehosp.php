@@ -12,17 +12,25 @@ include 'connectdb.php';
 	$hosp = $_POST["hospcode"];		//get hospital code from user
         $newname = $_POST["newname"];		// get new hospital name from user
 
-		//query updates hospital name to user specified new name
-        $query = 'UPDATE Hospital SET hospitalName ='."'$newname'".' WHERE uniqueCode ='."'$hosp'";
-        $result = mysqli_query($connection,$query);
+	if(strtoupper($hosp) != 'DDE' || strtoupper($hosp) != 'BBC' || strtoupper($hosp) != 'ABC')
+        {
+                echo 'Hospital code '.$hosp.' is not valid, enter valid hospital code';
 
-        if (!$result) {
-            die("databases query failed.");
+        }else
+	{
+
+		//query updates hospital name to user specified new name
+        	$query = 'UPDATE Hospital SET hospitalName ='."'$newname'".' WHERE uniqueCode ='."'$hosp'";
+        	$result = mysqli_query($connection,$query);
+
+        	if (!$result) {
+            		die("databases query failed.");
+        	}
+       		mysqli_free_result($result);
+
+        	echo 'Hospitals Name has been updated to:  ' .$newname;
         }
        
-        echo 'Hospitals Name has been updated to:  ' .$newname;
-        
-        mysqli_free_result($result);
 ?>
 <?php
 mysqli_close($connection);	//always close connection after done using

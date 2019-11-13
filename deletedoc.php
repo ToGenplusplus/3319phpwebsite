@@ -58,6 +58,7 @@ else
         	}		
 
 		mysqli_free_result($result2);
+
 		//if we get a row returned then user cannot delete doctor,inform user.
 		if($len != 0)
 		{
@@ -73,10 +74,12 @@ else
 			if(!$result3){
         			die("Error: deletion failed" . mysqli_error($connection));
 			}
-					
+			
+			mysqli_free_result($result3);
+		
 			echo 'Doctor has been successfully deleted from database';
 
-			mysqli_free_result($result3);
+		
 		}
 	}
 

@@ -13,14 +13,14 @@ include 'connectdb.php';
    $patohip= $_POST["patohip2"];	//get ohip from user
    $doclic = $_POST["docLic2"];		//get doc license number from user
 
-	//query stops doctor from treating patient my removing matching pair from treats table
+	//query stops doctor from treating patient by removing matching pair from treats table
 
    $query = 'DELETE FROM Treats WHERE ohip ='."'$patohip'".'AND licenseNumber ='."'$doclic'";
    
 
     $result=mysqli_query($connection,$query);
     if (!$result) {
-         die("database query failed.");
+         die("database query failed. ". mysqli_error($connection));
 	mysqli_free_result($result);// got to free query before issuing another query
      }else
         {
@@ -29,7 +29,7 @@ include 'connectdb.php';
                 $res = mysqli_query($connection,$query2);
 
                 if (!$res) {
-                        die("database query failed.");
+                        die("database query failed. " . mysqli_error($connection));
                 }
 
 		while($row = mysqli_fetch_assoc($res))
