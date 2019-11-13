@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +14,10 @@ include 'connectdb.php';
 <h2 class = "allh2">Doctor/Patient Information: </h2>
 <br>
 <h4> Would you like to get all Doctors or Doctors licensed before a given date?</h4>
+
 <button onclick="displayEntry('dateDoc')"> Before Date </button>
 <button  onclick="displayEntry('radio')"> Get all doctors </button>
+
 <form class ="form" action = "getdoctors.php" method="post">
 <div id = "radio">
 	<h4 class ="allh4"> Order by</h4>
@@ -30,9 +31,10 @@ include 'connectdb.php';
 	</div>
 </div>
 </form>
+
 <form class="form" action="docdate.php" method="post">
 <div id="dateDoc">
-	<h3 class="allh3"> Get all Doctors licensed before: </h3><br>
+	<h4 class="allh4"> Get all Doctors licensed before: </h4>
 	Enter Date: <input type="date" name="dates" required><br>
 	<input type="submit" value="Get Doctors">
 </div>
@@ -54,15 +56,22 @@ include 'connectdb.php';
 		<input type="submit" value"Insert Doctor"> 
 	</form>
 </div>
-<div id="deldoc">
+<div id="deldoc">	
 	<form class="form" name="form4" action="deletedoc.php" method="post">
-	FirstName: <input type="text" name="fname" required><br>
-        LastName: <input type="text" name="lname" required><br>
-	<input type="submit" value"Delete Doctor">
-	</form>
+        <br>
+        Select Doctor:
+        <select name="choosedoc">
+        <?php
+                include 'alldocs.php';
+        ?>
+        <input type="submit" value"Delete Doctor">
+        </select>
+        </form>
 </div>
+
 <h4 class = "allh4">Get doctors treating a patient: </h4>
 <button onclick ="displayEntry('dispForm')"> Insert Patient </button>
+
 <div id="dispForm">
 
 	<form class="form" name="form5" action="docpatient.php" method="post">

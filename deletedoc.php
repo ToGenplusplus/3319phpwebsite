@@ -10,20 +10,16 @@ include 'connectdb.php';
 ?>
 <?php
 
-$fname = $_POST["fname"];	//get doctors first name from user
-$lname= $_POST["lname"];       //get doctor last name from user
+$lnum  = $_POST["choosedoc"];	//get doctor licenseNumber from user
 
-$query1 = 'SELECT Treats.ohip FROM Treats, Doctor WHERE Treats.licenseNumber = Doctor.licenseNumber AND fname LIKE '. "'%$fname%'".' AND lname LIKE '."'%$lname%'";
-
-echo $query1;
-echo '<br>';
+$query1 = 'SELECT Treats.ohip FROM Treats WHERE Treats.licenseNumber = '."'$lnum'";
 
 $result = mysqli_query($connection,$query1);
 
 $length = 0;    //will count how many rows we get from query
 
 if(!$result){
-        die("Error: insert failed" . mysqli_error($connection));
+        die("Error: selection failed" . mysqli_error($connection));
 }
 else
 {
@@ -35,21 +31,25 @@ else
 
 	mysqli_free_result($result);	
 
+	//if we get a row doctor is treating patient, inform user.
+
 	if(lenght != 0)
 	{
 		echo 'Doctor You are trying to delete is currently treating a patient, would you stil like to delete doctor: '.'<br>';
 
 	}
-	else
+	else	//if doctor isn't treating a patient
 	{
-		$query2 = 'SELECT Treats.ohip FROM Treats, Doctor, Hospital WHERE Treats.licenseNumber = Doctor.licenseNumber AND Doctor.licenseNumber = headDoctor AND fname LIKE '."'%$fname%'". ' AND lname LIKE '."'%$lname%'";
+		//this query checks if the doctor is a head doctor
+
+		$query2 = 'SELECT Treats.ohip FROM Treats,Hospital WHERE Treats.licenseNumber = '."'$lnum'".' AND headDoctor = '."'$lunm'";
 
 		$len = 0;
 
 		$result2 = mysqli_query($connection,$query2);
 		
 		if(!$result2){
-        		die("Error: insert failed" . mysqli_error($connection));
+        		die("Error: selection failed" . mysqli_error($connection));
 		}
 
 		while($row1 = mysqli_fetch_assoc($result2))
@@ -58,20 +58,20 @@ else
         	}		
 
 		mysqli_free_result($result2);
-
+		//if we get a row returned then user cannot delete doctor,inform user.
 		if($len != 0)
 		{
 			echo 'Cannot delete doctor, doctor is head of a hospital';
 
 		}
-		else
+		else	//if doctor not a head doctor and not treating a patient
 		{
-			$query3 = 'DELETE FROM Doctor WHERE fname LIKE '."'%$fname%'". ' AND lname LIKE '."'%$lname%'";
+			$query3 = 'DELETE FROM Doctor WHERE licenseNumber = '."'$lnum'";
 
 			$result3 = mysqli_query($connection,$query3);
 
 			if(!$result3){
-        			die("Error: insert failed" . mysqli_error($connection));
+        			die("Error: deletion failed" . mysqli_error($connection));
 			}
 					
 			echo 'Doctor has been successfully deleted from database';
