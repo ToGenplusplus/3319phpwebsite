@@ -36,6 +36,13 @@ else
 	if($length != 0)
 	{
 		echo 'Doctor You are trying to delete is currently treating a patient, would you stil like to delete doctor: '.'<br>';
+		echo '<br>';
+		echo '<form action="finaldelete.php" method="post">';
+		echo '<input type="radio" name="choice" value='."'$lnum'".'>'."Yes".'<br>';
+		echo '<input type="radio" name="choice" value="no">'."No".'<br>';
+		echo '<input type="submit" value="Continue">';
+		echo '</form>';
+
 
 	}
 	else	//if doctor isn't treating a patient
