@@ -19,7 +19,9 @@ include 'connectdb.php';
 <button  onclick="displayEntry('radio')"> Get all doctors </button>
 
 <form class ="form" action = "getdoctors.php" method="post">
+
 <div id = "radio">
+
 	<h4 class ="allh4"> Order by</h4>
 	<input class = "" onclick = "displayEntry('last')" type="radio" name="order" value="fname">FirstName<br>
 	<input class = "" onclick = "displayEntry('last')" type="radio" name="order" value="lname">LastName<br>
@@ -33,17 +35,22 @@ include 'connectdb.php';
 </form>
 
 <form class="form" action="docdate.php" method="post">
+
 <div id="dateDoc">
+
 	<h4 class="allh4"> Get all Doctors licensed before: </h4>
 	Enter Date: <input type="date" name="dates" required><br>
 	<input type="submit" value="Get Doctors">
 </div>
 </form>
+
 <h4 class = "allh4">Insert or Delete Doctor: </h4>
+
 <button onclick = "displayEntry('newDoc')">Insert Doctor</button>
 <button onclick = "displayEntry('deldoc')">Delete Doctor</button>
 
 <div id="newDoc">
+
 <h5>Hopsital Code ,----- Hospital Name,province.</h5>
 
 <?php
@@ -61,7 +68,8 @@ include 'connectdb.php';
 		<input type="submit" value"Insert Doctor"> 
 	</form>
 </div>
-<div id="deldoc">	
+<div id="deldoc">
+	
 	<form class="form" name="form4" action="deletedoc.php" method="post">
         <br>
         Select Doctor:
@@ -75,6 +83,7 @@ include 'connectdb.php';
 </div>
 
 <h4 class = "allh4">Get doctors treating a patient: </h4>
+
 <button onclick ="displayEntry('dispForm')"> Insert Patient </button>
 
 <div id="dispForm">
@@ -85,28 +94,47 @@ include 'connectdb.php';
         </form>
 
 </div>
+
 <h4 class = "allh4">Assign doctor to patient or stop doctor from treating patient: </h4>
+
 <button onclick ="displayEntry('assign')"> Assign Patient</button>
 <button onclick ="displayEntry('stopDoc')"> Stop Treating</button><br>
+
 <div id="assign">
+
 	<form class="form" name="form6" action="treats.php" method="post">
         Patient OHIP: <input type="text" name="patohip1" required><br>
-	Doctor License Number: <input type="text" name="docLic" required><br>
-        <input type="submit" value="Submit"><br>
+	Doctor License Number:
+        <select name="docLic">
+        <?php
+                include 'alldocs.php';
+        ?>
+        <input type="submit" value"Submit">
+        </select>
         </form>
 
 </div>
+
 <div id="stopDoc">
+
 	<form class="form" name="form7" action="stoptreat.php" method="post">
         Patient OHIP: <input type="text" name="patohip2" required><br>
-        Doctor License Number: <input type="text" name="docLic2" required><br>
-        <input type="submit" value="Submit"><br>
+       	Doctor License Number:
+        <select name="docLic2">
+        <?php
+                include 'alldocs.php';
+        ?>
+        <input type="submit" value"Submit">
+        </select>
         </form>
 
 </div>
 <br>
+
 <h4 class="allh4">Doctors currently not treating any patients: </h4>
+
 <button onclick="displayEntry('nottreating')"> Get Doctors </button><br>
+
 <div id="nottreating">
 	<?php
 		$query1= 'SELECT fname,lname FROM Doctor WHERE licenseNumber NOT IN(SELECT licenseNumber FROM Treats)';
@@ -136,18 +164,23 @@ include 'connectdb.php';
 </div>
 
 <h2 clas="allh2">Hospital Info: <h2>
+
 <button onclick= "displayEntry('hospDisplay')"> View Hospitals</button>
+
 <div id="hospDisplay">
 <?php
 	include 'gethospitals.php';
 ?>
 </div>
+
 <h4 class="allh4">Update Hospital Name: </h4>
 <h5>Hopsital Code ,----- Hospital Name,province.</h5>
+
 <?php
 	include 'displayHospinfo.php'
 ?>
 <br>
+
 <form class="form" name="form8" action="updatehosp.php" method="post">
 	Hospital Code: <input type="text" name="hospcode" required><br>
 	New Hospital Name: <input type="text" name="newname" required><br>
