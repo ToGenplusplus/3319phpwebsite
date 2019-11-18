@@ -48,27 +48,20 @@ if($length == 0)
 	$lname = $_POST["lname"];
 	$spec= $_POST["spec"];
 	$licensed = $_POST["license"];
-	$code = $_POST["hospcode"];
-
-	if(strtoupper($code) != "DDE" || strtoupper($code) != "BBC" || strtoupper($code) != "ABC")
-	{
-		echo strtoupper($code).'<br>';
-		echo 'Hospital code '.$code.' is not valid, enter valid hospital code';
-
-	}else
-	{
-		$query2 = 'INSERT INTO Doctor(licenseNumber,fname,lname,specialty,dateLicensed,hospCode)VALUES('."'$licnum'".",".checkNull($fname).",".checkNull($lname).",".checkNull($spec).",".checkNull($licensed).","."'$code'".")";
-
-		$res = mysqli_query($connection,$query2);
-		if(!res){
-			die("Error: insert failed" . mysqli_error($connection));
-		}
+	$code = $_POST["HospCode"];
 	
-		mysqli_free_result($res);
+	$query2 = 'INSERT INTO Doctor(licenseNumber,fname,lname,specialty,dateLicensed,hospCode)VALUES('."'$licnum'".",".checkNull($fname).",".checkNull($lname).",".checkNull($spec).",".checkNull($licensed).","."'$code'".")";
 
-		echo "Doctor has been added:"."<br>";
-		echo $licnum.", ".$fname.", ".$lname.", ".$spec.", ".$licensed.", ".$code;
+	$res = mysqli_query($connection,$query2);
+	if(!res){
+		die("Error: insert failed" . mysqli_error($connection));
+		mysqli_free_result($res);
 	}
+	
+
+	echo "Doctor has been added:"."<br>";
+	echo $licnum.", ".$fname.", ".$lname.", ".$spec.", ".$licensed.", ".$code;
+
 
 }
 

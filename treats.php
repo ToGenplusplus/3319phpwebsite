@@ -16,8 +16,8 @@ include 'connectdb.php';
 	//query to assign doctor to a patient by inserting pair into treats table
 
    $query = 'INSERT INTO Treats VALUES('."'$patohip'".","."'$doclic'".' )';
-  
-    $result=mysqli_query($connection,$query);
+   
+   $result=mysqli_query($connection,$query);
 
     if (!$result) {
          die("database query failed." . mysqli_error($connection));

@@ -33,7 +33,7 @@ else
 
 	//if we get a row doctor is treating patient, inform user.
 
-	if(lenght != 0)
+	if($length != 0)
 	{
 		echo 'Doctor You are trying to delete is currently treating a patient, would you stil like to delete doctor: '.'<br>';
 
@@ -73,9 +73,9 @@ else
 
 			if(!$result3){
         			die("Error: deletion failed" . mysqli_error($connection));
+				mysqli_free_result($result3);
 			}
 			
-			mysqli_free_result($result3);
 		
 			echo 'Doctor has been successfully deleted from database';
 

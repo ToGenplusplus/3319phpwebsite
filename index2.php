@@ -44,6 +44,11 @@ include 'connectdb.php';
 <button onclick = "displayEntry('deldoc')">Delete Doctor</button>
 
 <div id="newDoc">
+<h5>Hopsital Code ,----- Hospital Name,province.</h5>
+
+<?php
+	include 'displayHospinfo.php'
+?>
 	<form class="form" name="form3" action="newdoc.php" method="post">
 		
 		License Number: <input type="text" name="lnum" required><br>
@@ -51,7 +56,7 @@ include 'connectdb.php';
 		LastName: <input type="text" name="lname" ><br>
 		Specialty: <input type="text" name="spec"><br>
 		DateLicensed: <input type="date" name="license"><br>
-		Hospital Code: <input type="text" name="hospcode" required><br>
+		Hospital Code: <input type="text" name="HospCode" required><br>
 
 		<input type="submit" value"Insert Doctor"> 
 	</form>
@@ -140,20 +145,7 @@ include 'connectdb.php';
 <h4 class="allh4">Update Hospital Name: </h4>
 <h5>Hopsital Code ,----- Hospital Name,province.</h5>
 <?php
-
-	$query1 = 'SELECT uniqueCode,hospitalName,province FROM Hospital';
-
-	$result = mysqli_query($connection,$query1);
-	if (!$result) {
-     	die("databases query failed.");
-	}
-	echo "<ol>";
-	while ($row = mysqli_fetch_assoc($result)) {
-    	 echo "<li>";
-   	 echo $row["uniqueCode"].",----- ".$row["hospitalName"].", ".$row["province"]."</li>";
-	}
-	mysqli_free_result($result);
-	echo "</ol>";
+	include 'displayHospinfo.php'
 ?>
 <br>
 <form class="form" name="form8" action="updatehosp.php" method="post">
