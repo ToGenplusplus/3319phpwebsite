@@ -6,17 +6,26 @@
 <title>My Hospital Database</title>
 </head>
 <body>
+<!-- Include the php file to be connected to database -->
 <?php
 include 'connectdb.php';
 ?>
 <h1 id="title"> My Hospital Databse </h1>
 <br>
+
+<!-- under this heading will be any information related to doctor or patient-->
+
 <h2 class = "allh2">Doctor/Patient Information: </h2>
 <br>
 <h4> Would you like to get all Doctors or Doctors licensed before a given date?</h4>
 
+<!-- On click function in javascript, hides or displays a certain div -->
+
 <button onclick="displayEntry('dateDoc')"> Before Date </button>
 <button  onclick="displayEntry('radio')"> Get all doctors </button>
+<!-- when this form is submited it will load the 
+getdoctors file to get all doctors in database
+-->
 
 <form class ="form" action = "getdoctors.php" method="post">
 
@@ -33,6 +42,11 @@ include 'connectdb.php';
 	</div>
 </div>
 </form>
+
+<!-- when this form is submited it will load the
+docdate page to display all doctors licensed before the 
+provided date
+-->
 
 <form class="form" action="docdate.php" method="post">
 
@@ -56,6 +70,11 @@ include 'connectdb.php';
 <?php
 	include 'displayHospinfo.php'
 ?>
+<!-- when this form is submitted it will load the newdoc page
+hopefully informing the user that a new doctor has been created 
+succesfully
+-->
+
 	<form class="form" name="form3" action="newdoc.php" method="post">
 		
 		License Number: <input type="text" name="lnum" required><br>
@@ -69,6 +88,11 @@ include 'connectdb.php';
 	</form>
 </div>
 <div id="deldoc">
+
+<!-- when this form is submited it will load the
+delete doc page hopefully letting the user know that a doctor
+was deleted succesfully 
+-->
 	
 	<form class="form" name="form4" action="deletedoc.php" method="post">
         <br>
@@ -88,6 +112,10 @@ include 'connectdb.php';
 
 <div id="dispForm">
 
+<!-- when this form is submitted it will load the docpatient page
+hopefully displaying all doctors treating a specific patient
+-->
+
 	<form class="form" name="form5" action="docpatient.php" method="post">
 	Patient OHIP: <input type="text" name="patohip" required><br>
 	<input type="submit" value="View Info"><br>
@@ -101,6 +129,10 @@ include 'connectdb.php';
 <button onclick ="displayEntry('stopDoc')"> Stop Treating</button><br>
 
 <div id="assign">
+<!-- when this form is submited it will load the treats.php page
+hopefully succesfully assigning a doctor to treat a patient
+upon user request
+-->
 
 	<form class="form" name="form6" action="treats.php" method="post">
         Patient OHIP: <input type="text" name="patohip1" required><br>
@@ -116,6 +148,10 @@ include 'connectdb.php';
 </div>
 
 <div id="stopDoc">
+<!-- when this form is submited it will load the stoptreat page
+to hopefully stop a doctor from treating a patient upon
+user request
+-->
 
 	<form class="form" name="form7" action="stoptreat.php" method="post">
         Patient OHIP: <input type="text" name="patohip2" required><br>
@@ -134,6 +170,10 @@ include 'connectdb.php';
 <h4 class="allh4">Doctors currently not treating any patients: </h4>
 
 <button onclick="displayEntry('nottreating')"> Get Doctors </button><br>
+
+<!-- i included this php tag in index2.php because i dont plan on
+reusing it
+-->
 
 <div id="nottreating">
 	<?php
@@ -167,6 +207,10 @@ include 'connectdb.php';
 
 <button onclick= "displayEntry('hospDisplay')"> View Hospitals</button>
 
+<!-- when button clicked it will dispaly information about 
+all hospitals by loading gethospitals php file
+-->
+
 <div id="hospDisplay">
 <?php
 	include 'gethospitals.php';
@@ -176,10 +220,19 @@ include 'connectdb.php';
 <h4 class="allh4">Update Hospital Name: </h4>
 <h5>Hopsital Code ,----- Hospital Name,province.</h5>
 
+<!-- show some information about all hospitals
+so users know what to enter when updating 
+the hospital
+-->
+
 <?php
 	include 'displayHospinfo.php'
 ?>
 <br>
+<!-- when this form is submited it will load the
+updatehosp page to hopefully update a hospital
+name upon user request
+-->
 
 <form class="form" name="form8" action="updatehosp.php" method="post">
 	Hospital Code: <input type="text" name="hospcode" required><br>
