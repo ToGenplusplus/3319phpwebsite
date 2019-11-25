@@ -1,9 +1,15 @@
+/*
+modify the main page title
+*/
 #title {
  text-align: center;
  text-decoration: underline;
  
 }
 
+/*
+set a number of divs to be hidden
+*/
 #radio, #dateDoc, #newDoc{
 
 display: none;

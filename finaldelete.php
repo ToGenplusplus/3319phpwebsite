@@ -16,15 +16,13 @@ $choice = $_POST["choice"];	//get user choice no or if yes $choice will
 if($choice == "no")
 {
 
-	echo 'Doctor not deleted.';	//user decides not to continue to delete doctor
+	echo 'Doctor was not deleted';	//user decides not to continue to delete doctor
 
 }
 else	//user decides to continue
 {
 
 $query3 = 'DELETE FROM Doctor WHERE licenseNumber = '."'$choice'";	//query to delete doctor specified by license Number
-
-echo $query3.'<br>';
 
 $result3 = mysqli_query($connection,$query3);
 

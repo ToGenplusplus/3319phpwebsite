@@ -1,4 +1,4 @@
-<?php
+<?php	//this file is used to initialize a connection to database
 $dbhost = "localhost";
 $dbuser= "root";
 $dbpass = "AwesomeGod1";
